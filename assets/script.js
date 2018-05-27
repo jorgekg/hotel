@@ -8,7 +8,6 @@ $(document).ready(function(){
         cadCheckin(
             $('#entrada').val(), $('#saida').val(), $('#pessoa').val(), $('#carro').val()
         );
-        limpar();
         return false;
     });
     loadTable();
@@ -23,7 +22,6 @@ function loadTable(){
     if(checkin != null && checkin != null){
         checkin = JSON.parse(checkin);
         for(var i = 0; i < checkin.length; i++) {
-            debugger
             var ent = (new Date(checkin[i].entrada));
             var sai = (new Date(checkin[i].saida));
             var isPrint = true;
@@ -100,13 +98,22 @@ function limparFecharModal(){
 }
 
 function cadCheckin(entrada, saida, pessoa, carro){
-    if(isDocumentoCadastrado(pessoa)){
-        cadastrar('checkin',{
-           entrada: new Date(Date.parse(formatDate(entrada))),
-           saida : new Date(Date.parse(formatDate(saida))),
-           pessoa : pessoa,
-           carro : carro
-        });
+    var documento = null;
+    debugger
+    if(isDocumentoCadastrado(pessoa) || (documento = isNomeCadastrado(pessoa))){
+        if(documento != null || $.trim(pessoa) != "") {
+            cadastrar('checkin', {
+                entrada: new Date(Date.parse(formatDate(entrada))),
+                saida: new Date(Date.parse(formatDate(saida))),
+                pessoa: documento != null ? documento : pessoa,
+                carro: carro
+            });
+            limpar();
+            loadTable();
+        }else{
+            $('#cadPessoa').modal();
+            $('#documento').val(pessoa)
+        }
     }else{
         $('#cadPessoa').modal();
         $('#documento').val(pessoa)
@@ -136,6 +143,19 @@ function cadastrar(bind, item){
     }else{
         setLocalstorage(bind, JSON.stringify([item]));
     }
+}
+
+function isNomeCadastrado(nome) {
+    var pessoas = getLocalstorage('pessoa');
+    if(pessoas != null && pessoas != "null"){
+        pessoas = JSON.parse(pessoas);
+        for(var i = 0; i < pessoas.length; i++){
+            if(pessoas[i].nome.toUpperCase() == nome.toUpperCase()){
+                return pessoas[i].documento;
+            }
+        }
+    }
+    return null;
 }
 
 function isDocumentoCadastrado(documento) {
