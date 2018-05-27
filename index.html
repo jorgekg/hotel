@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="cadPessoa" tabindex="-1" role="dialog" aria-labelledby="cadPessoa">
+        <form id="frm_pessoa">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Cadastro de Pessoa</h4>
+                    </div>
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input required type="text" class="form-control" id="nome">
+                            </div>
+                            <div class="form-group">
+                                <label for="documento">Documento</label>
+                                <input required type="text" class="form-control" id="documento">
+                            </div>
+                            <div class="form-group">
+                                <label for="fone">Telefone</label>
+                                <input required type="text" class="form-control" id="fone">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        <div class="magin-default">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#cadPessoa">Incluir pessoa</button>
+        </div>
+        <div class="panel panel-primary ">
+            <div class="panel-heading">Novo check in</div>
+            <div class="panel-body">
+                <form id="frm_checkin">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="entrada">Data/hora de entrada</label>
+                                <input type="text" onchange="validateDate(this)" required class="form-control" id="entrada">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="saida">Data/hora de saida</label>
+                                <input type="text" onchange="validateDate(this)" required class="form-control" id="saida">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="pessoa">Pessoa</label>
+                                <input type="text" required class="form-control" id="pessoa">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="fix-input-checkbox">
+                                <input type="checkbox"  value="1" id="carro"> Possui veículo?</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-primary ">
+            <div class="panel-heading">Consulta</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label >Filtrar por:</label>
+                        <p>
+                            <span><input type="checkbox" checked id="ativo"> Pessoas ainda presentes</span>
+                            <span  class="fix-left"><input type="checkbox" id="nao_ativo"> Pessoas que já deixaram o hotel</span>
+                        </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <table class="table ">
+                            <thead>
+                            <th>Nome</th>
+                            <th>Documento</th>
+                            <th>Valor gasto (R$)</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="assets/script.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+</body>
+</html>
