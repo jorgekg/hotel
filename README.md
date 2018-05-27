@@ -1,6 +1,7 @@
-# Back-end Hotel.
+# Front-end Hotel.
 
-#Tecnologias
+# Tecnologias
 HTML 5, Java script, Css
-#Frameworks 
+
+# Frameworks 
 Jquery, Boostrap
