@@ -99,7 +99,6 @@ function limparFecharModal(){
 
 function cadCheckin(entrada, saida, pessoa, carro){
     var documento = null;
-    debugger
     if(isDocumentoCadastrado(pessoa) || (documento = isNomeCadastrado(pessoa))){
         if(documento != null || $.trim(pessoa) != "") {
             cadastrar('checkin', {
