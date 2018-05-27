@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
     <!-- Modal -->
     <div class="modal fade" id="cadPessoa" tabindex="-1" role="dialog" aria-labelledby="cadPessoa">
         <form id="frm_pessoa">
@@ -87,8 +86,8 @@
                     <div class="col-md-6">
                         <label >Filtrar por:</label>
                         <p>
-                            <span><input type="checkbox" checked id="ativo"> Pessoas ainda presentes</span>
-                            <span  class="fix-left"><input type="checkbox" id="nao_ativo"> Pessoas que já deixaram o hotel</span>
+                            <label><input type="checkbox" checked id="ativo" onchange="loadTable()"> Pessoas ainda presentes</label>
+                            <label class="fix-left"><input type="checkbox" id="nao_ativo" onchange="loadTable()"> Pessoas que já deixaram o hotel</label>
                         </p>
                         </div>
                     </div>

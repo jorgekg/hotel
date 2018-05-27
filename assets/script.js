@@ -18,26 +18,62 @@ $(document).ready(function(){
 
 function loadTable(){
     var checkin = getLocalstorage('checkin');
+    $('.table tbody').html("");
+    var isHtmlPrint = false;
     if(checkin != null && checkin != null){
         checkin = JSON.parse(checkin);
         for(var i = 0; i < checkin.length; i++) {
+            debugger
             var ent = (new Date(checkin[i].entrada));
             var sai = (new Date(checkin[i].saida));
+            var isPrint = true;
+            if(!$('#ativo').is(":checked")){
+                if((sai - (new Date())) >= 0){
+                    isPrint = false;
+                }
+            }
+            if(!$('#nao_ativo').is(":checked")){
+                if(((new Date()) - sai) >= 0){
+                    isPrint = false;
+                }
+            }
             if((sai.getHours() + sai.getMinutes()) >= 46){
                 sai.setDate(sai.getDate() + 1);
             }
             var total = 0;
-            while ((ent - sai) > 0){
+            while ((sai - ent) >= 0){
                 if (isFinalDeSemana(ent)) {
                     total += 150;
+                    if(checkin[i].carro == 1){
+                        total += 20;
+                    }
                 } else {
                     total += 120;
+                    if(checkin[i].carro == 1){
+                        total += 15;
+                    }
                 }
                 ent.setDate(ent.getDate() + 1);
             }
-            $('.table tbody').html("<tr><td>teste</td><td>teste</td><td>"+total+"</td></tr>");
+            var nome = "";
+            var pessoas = getLocalstorage("pessoa");
+            if(pessoas != null && pessoas != "null"){
+                pessoas = JSON.parse(pessoas);
+                for(var b = 0; b < pessoas.length; b++){
+                    if(pessoas[b].documento == checkin[i].pessoa){
+                        nome = pessoas[b].nome;
+                    }
+                }
+            }
+            if(isPrint) {
+                isHtmlPrint = true;
+                $('.table tbody').append("<tr><td>" + nome + "</td><td>" + checkin[i].pessoa + "</td><td>" + (total.toFixed(2)).replace(".", ",") + "</td></tr>");
+            }
         }
     }else{
+        $('.table tbody').html("<tr><td colspan='3' align='center'>Nenhum registro</td></tr>");
+    }
+    if(!isHtmlPrint){
         $('.table tbody').html("<tr><td colspan='3' align='center'>Nenhum registro</td></tr>");
     }
 }
@@ -67,7 +103,7 @@ function cadCheckin(entrada, saida, pessoa, carro){
     if(isDocumentoCadastrado(pessoa)){
         cadastrar('checkin',{
            entrada: new Date(Date.parse(formatDate(entrada))),
-           saida : new Date(Date.parse(formatDate(entrada))),
+           saida : new Date(Date.parse(formatDate(saida))),
            pessoa : pessoa,
            carro : carro
         });
